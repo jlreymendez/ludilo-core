@@ -37,7 +37,7 @@ namespace Ludilo {
       _event.UnregisterListener(this);
     }
 
-    public void OnEventRaised(K data) {
+    public virtual void OnEventRaised(K data) {
       _response.Invoke(data);
     }
   }

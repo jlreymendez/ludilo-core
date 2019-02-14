@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ludilo {
+  public abstract class BaseGameEvent : ScriptableObject {
+    public abstract void RaiseTest();
+  }
+
   [CreateAssetMenu(menuName = "Ludilo/Events/GameEvent")]
   public class GameEvent : ScriptableObject {
     private List<GameEventListener> _listeners = new List<GameEventListener>();
@@ -24,8 +28,12 @@ namespace Ludilo {
     }
   }
 
-  public class GameEvent<T> : ScriptableObject {
+  public class GameEvent<T> : BaseGameEvent {
     private List<IRaisableCallback<T>> _listeners = new List<IRaisableCallback<T>>();
+
+    public override void RaiseTest() {
+      Raise(default(T));
+    }
 
     public void Raise(T data) {
       for (int i = _listeners.Count - 1; i >= 0; i--) {
