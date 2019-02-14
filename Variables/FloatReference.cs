@@ -4,5 +4,8 @@ using UnityEngine;
 
 namespace Ludilo {
   [System.Serializable]
-  public class FloatReference : GenericReference<FloatVariable, float> {}
+  public class FloatReference : GenericReference<FloatVariable, float> {
+
+    public FloatReference(FloatVariable variable = null) : base(variable) {}
+  }
 }

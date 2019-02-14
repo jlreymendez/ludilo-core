@@ -16,15 +16,38 @@ namespace Ludilo {
       _variable = variable;
     }
 
+    public bool Initialized {
+      get { return _useConstant || _variable != null; }
+    }
+
     public K Value {
       get {
         return _useConstant ? _constantValue : _variable != null ? _variable.Value : default(K);
+      }
+      set {
+        if (_useConstant) {
+          _constantValue = value;
+        } else {
+          _variable.Value = value;
+        }
       }
     }
 
     public void Reset() {
       if (!_useConstant) {
         _variable.Reset();
+      }
+    }
+
+    public void AddListener(OnValueChanged listener) {
+      if (!_useConstant) {
+        _variable.Changed += listener;
+      }
+    }
+
+    public void RemoveListener(OnValueChanged listener) {
+      if (!_useConstant) {
+        _variable.Changed -= listener;
       }
     }
 

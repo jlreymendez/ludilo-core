@@ -4,5 +4,9 @@ using UnityEngine;
 
 namespace Ludilo {
   [System.Serializable]
-  public class BoolReference : GenericReference<BoolVariable, bool> {}
+  public class BoolReference : GenericReference<BoolVariable, bool> {
+
+    public BoolReference(BoolVariable variable = null) : base(variable) {}
+  }
 }
+

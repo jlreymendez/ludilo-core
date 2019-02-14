@@ -4,5 +4,8 @@ using UnityEngine;
 
 namespace Ludilo {
   [System.Serializable]
-  public class ColorReference : GenericReference<ColorVariable, Color> {}
+  public class ColorReference : GenericReference<ColorVariable, Color> {
+
+    public ColorReference(ColorVariable variable = null) : base(variable) {}
+  }
 }

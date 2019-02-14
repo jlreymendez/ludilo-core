@@ -4,5 +4,8 @@ using UnityEngine;
 
 namespace Ludilo {
   [System.Serializable]
-  public class ScriptableObjectReference : GenericReference<ScriptableObjectVariable, ScriptableObject> {}
+  public class ScriptableObjectReference : GenericReference<ScriptableObjectVariable, ScriptableObject> {
+
+    public ScriptableObjectReference(ScriptableObjectVariable variable = null) : base(variable) {}
+  }
 }

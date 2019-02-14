@@ -5,24 +5,41 @@ using UnityEngine;
 namespace Ludilo {
   public class GenericVariable<T> : BaseVariable {
 
+    public event OnValueChanged Changed;
+
     public T Value {
-      get { return _value; }
-      set { _value = value; }
+      get { return GetValue(); }
+      set {
+        // Set value.
+        SetValue(value);
+        // Inform change.
+        if (Changed != null) {
+          Changed();
+        }
+      }
     }
 
     [SerializeField] T _defaultValue;
     T _value;
 
     void OnEnable() {
-      _value = _defaultValue;
+      Value = _defaultValue;
     }
 
     public void Reset() {
-      _value = _defaultValue;
+      Value = _defaultValue;
+    }
+
+    protected virtual T GetValue() {
+      return _value;
+    }
+
+    protected virtual void SetValue(T value) {
+      _value = value;
     }
 
     public override string Stringify() {
-      return _value.ToString();
+      return Value.ToString();
     }
 
     public static implicit operator T(GenericVariable<T> variable) {
@@ -33,6 +50,8 @@ namespace Ludilo {
       return variable.Value.ToString();
     }
   }
+
+  public delegate void OnValueChanged();
 
   public abstract class BaseVariable : ScriptableObject, IStringifiable {
     public abstract string Stringify();
